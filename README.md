@@ -42,6 +42,12 @@
 <!-- Your community, and what your classifier sorts posts into. Three or four
      sentences. -->
 
+TakeMeter reads comments from [r/formula1](https://www.reddit.com/r/formula1/),
+the main Formula 1 subreddit, during the back half of the 2026 season. Every
+race weekend the post-race threads fill up with thousands of comments, and
+they're a mix of people arguing from lap times and points maths, people
+making confident calls with nothing behind them, and people just reacting to
+what they watched. My classifier sorts a comment by *what kind of take it is*.
 
 
 ---
