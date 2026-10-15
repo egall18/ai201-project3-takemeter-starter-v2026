@@ -324,19 +324,41 @@ lower.
      workflow and disclosing it costs you nothing. Not disclosing it is the
      problem. -->
 
-**Moment 1**
+**Moment 1: pre-labelling the dataset**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* For an AI assistant to collect about 200 r/formula1
+  comments and pre-label them against my four definitions and decision rules,
+  keeping 20 aside, unlabelled, so I could label them cold.
+- *What came back:* 200 labelled posts balanced across the four labels,
+  including posts deliberately chosen for the hard boundary (`hot_take`s with
+  a stat in them). Then my 20 cold labels matched the pre-labels on only
+  **11 of 20**.
+- *What I changed:* My labels replaced the pre-labels on those 20, so 9 posts
+  changed label. The pattern in the 9 showed my `reaction` boundary is wider
+  than my written rule (I label by tone), and my bar for `analysis` is
+  higher. I weighed relabelling the other 180 to my reading, but decided to
+  keep them as they are and treat the 55% as a finding to test next unit,
+  since relabelling now would hide exactly the inconsistency the agreement
+  check is meant to catch.
 
-**Moment 2**
+**Moment 2: the first training run**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* To run notebook sections 1–5 with my labels and write
+  `results.json` and `test_split.csv`.
+- *What came back:* The run plus a read of the training log: validation loss
+  only went from 1.32 to 1.25, barely below random guessing for four labels
+  (~1.39), because 3 epochs on 139 posts is only 27 weight updates. The
+  suggestion was that more epochs would probably help.
+- *What I changed:* Nothing in the run, on purpose. My criteria were already
+  filed, and raising the epochs after seeing a test score would be tuning to
+  the result. I kept the defaults and wrote the under-training down as my
+  first candidate for next unit's "fix one thing and re-run".
 
-**Pre-labelling disclosure:**
+**Pre-labelling disclosure:** 180 of the 200 rows in `labels.csv` were
+pre-labelled by an AI assistant and are marked `pre-labelled` in the `note`
+column. I labelled the other 20 myself without seeing the pre-labels; those
+are marked `cold`, and where we disagreed (9 of 20) my label is the one in
+the file.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
