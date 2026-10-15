@@ -278,17 +278,40 @@ meant.
 
 <!-- Your starting model, your settings, and anything you changed and why. -->
 
-**Base model:**
+**Base model:** `distilbert-base-uncased`, the notebook's default.
 
-**Settings:** <!-- epochs, learning rate, batch size, seed -->
+**Settings:** 3 epochs, learning rate 2e-5, batch size 16, max length 128
+tokens, seed 42. Trained on **`cpu`** (Intel Mac, torch 2.2.2), which
+`results.json` records too. The run was 27 training steps and took about a
+minute and a half.
 
-**Anything I changed from the defaults, and why:**
+**Anything I changed from the defaults, and why:** Only `LABELS`, set to my
+four labels: `["analysis", "hot_take", "reaction", "banter"]`. I kept every
+hyperparameter at its default. My criteria were filed before training, and
+tuning settings after seeing a score would just move the standard to meet
+the result.
 
-**Split sizes:** <!-- train / val / test, and per-label counts in the test
-split. If a label had fewer than about 8 in test, say so — it explains a lot
-of next unit's variance. -->
+One thing I noticed in the training log (validation set, not test): the loss
+barely moved. Training loss went 1.36 → 1.26 and validation loss 1.32 → 1.25
+over the three epochs, where random guessing across four labels is about
+1.39. With 139 training posts and batch size 16, three epochs is only 27
+weight updates, so I think the model is under-trained, not just confused.
+I'm leaving that for next unit's "fix one thing" step instead of changing it
+now.
 
+**Split sizes:** 139 train / 31 validation / 30 test, stratified.
 
+| Label | Train | Val | Test |
+|---|---|---|---|
+| `analysis` | 29 | 7 | **6** |
+| `hot_take` | 39 | 9 | 8 |
+| `reaction` | 41 | 9 | 9 |
+| `banter` | 30 | 6 | **7** |
+
+`analysis` (6) and `banter` (7) both have fewer than 8 test examples, so
+their F1 rests on a handful of posts and will swing between seeds. One post
+is worth about 0.15 of F1 for them, which is why criterion 2 sets their bar
+lower.
 
 ---
 
