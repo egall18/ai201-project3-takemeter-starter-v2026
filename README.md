@@ -170,19 +170,64 @@ verdict about a driver's talent, a team's culture or a whole season, it's a
 <!-- Where you collected from, how you labelled, your counts, and three hard
      cases. -->
 
-**Where the posts came from:**
+**Where the posts came from:** Top-level comments from r/formula1 between
+late August and 14 October 2026, pulled from the Arctic Shift Reddit archive
+(Reddit's own API blocks scripted requests). Most come from the race-weekend
+threads for the Dutch, Italian, Spanish, Azerbaijan, Malaysia (the relocated
+Bahrain GP) and Singapore rounds (pre-race, post-qualifying, post-sprint,
+post-race and day-after debrief), plus two Monday trash talk threads and three
+news threads. Real stat-backed arguments barely show up in top-level comments,
+so to reach 45 `analysis` posts I also searched the whole 2026 season for
+comments containing phrases like "stint", "points behind" and "on average",
+and kept the ones that make sense without the comment above them. That search
+also turned up some of my `hot_take`s, the ones with a number used as
+decoration, so a number isn't a giveaway for `analysis`. I left out
+questions, neutral explanations, link-only posts and duplicates (the
+out-of-scope list in my taxonomy).
 
-**How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
-Say so plainly — the disclosure is required, not penalised. -->
+**How I labelled them:** All 200 were pre-labelled with AI against the
+definitions and decision rules above. I then labelled 20 of them myself, 5
+from each pre-label, without seeing the pre-labels (`cold_20.csv`). My labels
+replaced the pre-labels for those 20, which are marked `cold` in the `note`
+column. The other 180 are marked `pre-labelled`.
+
+My cold labels matched the pre-labels on **11 of 20 (55%)**, and the misses
+weren't random:
+
+- **4 of the 9 were me calling something `reaction`** that the pre-label had
+  as `hot_take`, `analysis` or `banter`. For example, *"Lando is a massive
+  muppet… he's more than happy to ruin his and his teammate's race"* felt
+  like a reaction to me because it was written straight after the crash. My
+  own written rule says a claim about a driver is `hot_take` even with an
+  insult in it, so in practice I'm labelling by tone more than my rule says I
+  should.
+- **2 were `analysis` → `hot_take`**, so my bar for `analysis` is higher than
+  the pre-label's. *"The average finishing position for a Ferrari for the last
+  10ish gp is 4.5… so Lewis finishing 5th or lower isn't out of the question"*
+  didn't feel like an argument to me.
+- **3 were `banter` vs `reaction` / `hot_take` swaps**, which is the sarcasm
+  boundary.
+
+I kept the dataset as it is rather than relabelling the 180 to match my cold
+reading. That means the data mixes two readings of the `reaction` and
+`analysis` boundaries, and I expect that to show up in the confusion matrix
+next unit.
 
 **Counts per label:**
 
 | Label | Count | Share |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| **Total** |  | 100% |
+| `reaction` | 59 | 29.5% |
+| `hot_take` | 56 | 28.0% |
+| `banter` | 43 | 21.5% |
+| `analysis` | 42 | 21.0% |
+| **Total** | 200 | 100% |
+
+Every label sits inside the 20–35% band from criterion 3. One thing I already
+know will matter: `analysis` posts are much longer (median 347 characters,
+against 82–151 for the other three), because an argument from evidence takes
+more words. The model could learn "long post = `analysis`" instead of what I
+meant.
 
 **Three hard cases**
 
@@ -190,25 +235,42 @@ Say so plainly — the disclosure is required, not penalised. -->
      been, and what you chose. These are worth more than the easy 190. -->
 
 **1.**
-> *The post:*
+> *The post:* "Hulkenberg is genuinely the most consistent driver I've ever
+> seen... His previous eight results are: P8, P7, P11, P11, P10, P12, P8, P9.
+> No matter what race it is, it feels like he's almost always in contention to
+> finish in the points..."
 >
-> *Could have been:*
+> *Could have been:* `analysis` or `hot_take`
 >
-> *I chose, because:*
+> *I chose, because:* `hot_take`. The eight results are real and checkable,
+> and they do show he's been consistently around the points lately. But the
+> conclusion is "the most consistent driver I've ever seen", which is far
+> bigger than eight midfield results can show. Under my rule, the conclusion
+> can't be bigger than the fact, so it's a take with a stat in it.
 
 **2.**
-> *The post:*
+> *The post:* "0.1 seconds. Bottas doing everything he could to help Red Bull."
 >
-> *Could have been:*
+> *Could have been:* `hot_take` or `banter`
 >
-> *I chose, because:*
+> *I chose, because:* `hot_take`. It reads like a joke, but if you take the
+> joke out there's still a sincere accusation underneath: that Bottas let a
+> Red Bull past on purpose. My rule says sarcasm that's really an opinion is a
+> `hot_take`. And the 0.1 seconds is too small a fact to carry an accusation
+> like that, so it isn't `analysis` either.
 
 **3.**
-> *The post:*
+> *The post:* "Christian Horner was at Redbull for 20 years. With 525600
+> minutes per year and at an average of 5 minutes per serving he could have
+> consumed 2,103,840 bowls of coco pops in that time."
 >
-> *Could have been:*
+> *Could have been:* `banter` or `analysis`
 >
-> *I chose, because:*
+> *I chose, because:* `banter`. It's the most number-heavy post in the
+> dataset, and the maths actually checks out. But nothing is being argued.
+> Take the joke out and there's no claim left at all, which is exactly my
+> test for `banter`. I kept it on purpose: it's the clearest example that
+> numbers don't make something `analysis`.
 
 ---
 
