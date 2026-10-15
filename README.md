@@ -47,7 +47,10 @@ the main Formula 1 subreddit, during the back half of the 2026 season. Every
 race weekend the post-race threads fill up with thousands of comments, and
 they're a mix of people arguing from lap times and points maths, people
 making confident calls with nothing behind them, and people just reacting to
-what they watched. My classifier sorts a comment by *what kind of take it is*.
+what they watched. My classifier sorts a comment by *what kind of take it is*:
+`analysis` (argued from a checkable fact), `hot_take` (a confident claim with
+nothing holding it up), `reaction` (how the writer feels about something that
+just happened), or `banter` (the joke is the whole point).
 
 
 ---
@@ -60,35 +63,105 @@ what they watched. My classifier sorts a comment by *what kind of take it is*.
      The decision rule is worth a point on its own and it's the thing most
      people leave out. Every taxonomy has a hardest boundary. Name yours. -->
 
-### `label_one`
+### `analysis`
 
-**Definition:**
-
-**Example 1:**
->
-
-**Example 2:**
->
-
-### `label_two`
-
-**Definition:**
+**Definition:** Argues a point about the sport from a specific, checkable fact
+(lap times, gaps, points, tyre stints, results, a past season) where the fact
+is the reason for the conclusion.
 
 **Example 1:**
+> The narrative won't stop because people just love to feed off it but I'll
+> debunk the "Lewis should've been let past when Charles came out of the pits
+> on mediums" narrative.
 >
+> Lewis' lap times in free air before Charles came out of the pits:
+>
+> 37.2 37.1 37.0 37.2
+>
+> Charles lap times after his out lap on the mediums:
+>
+> 37.3 36.8 36.9 36.9
+>
+> It's quite obvious that Lewis didn't have any extra pace at that stage of
+> the race to warrant a swap.
 
 **Example 2:**
->
+> A lot of people are saying Hamilton overruled Ferrari and rightfully so. But
+> that's plain wrong. Leclerc was around 5s behind, pitted to inters, changed
+> his wing, and still overtook Hamilton and was building a gap. The SC
+> eventually neutralized things and made it seem like vetoing Ferrari was the
+> correct decision. But looking at the process and not the outcome, Hamilton
+> should've come in as instructed.
+
+### `hot_take`
+
+**Definition:** A confident, general claim about a driver, team, track or the
+sport that offers no support, or only a fact too small to carry it.
+
+**Example 1:**
+> LIAM LAWSON WOULD DESTROY EVERYONE IN EQUAL CARS
+
+**Example 2:**
+> Mekies walked into Horner's well oiled machine and while has so far shown
+> nothing significant on his own, he keeps the Verstappen's happy, and
+> Mintzlaff only cares about that.
+
+### `reaction`
+
+**Definition:** How the writer feels about something they just watched or that
+just happened to them: about their own experience of the moment, not a claim
+about the world.
+
+**Example 1:**
+> The crowd when Lewis passed Hadjar was insane 😯
+
+**Example 2:**
+> Glad I gave up and went to bed, otherwise I'd have been knackered all day.
+> But, my goodness, what a race.
+
+### `banter`
+
+**Definition:** A post whose point is the joke (a bit, a pun, a meme, an
+absurd scenario) rather than a sincere claim or feeling.
+
+**Example 1:**
+> "Your vehicle is not subscribed to Wet Mode. Please insert credit card to
+> enable."
+
+**Example 2:**
+> They were running windows and it did an update without permission
 
 ### The hardest boundary
 
-**Which two labels:**
+**Which two labels:** `analysis` vs `hot_take`. r/formula1 loves a stat, and
+half the confident takes have a number in them somewhere. *"Alonso in 8th is
+why he keeps getting contracts"* has a checkable result in it and is still a
+take.
 
-**The decision rule I used every time:**
-<!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
-     if the tone is heated." -->
+**The decision rule I used every time:** It's `analysis` only if the fact is
+checkable **and the conclusion is no bigger than what the fact can show.** A
+set of lap times can show who was faster in that stint. Points maths can show
+who can still win the title. If one result or one number gets stretched into a
+verdict about a driver's talent, a team's culture or a whole season, it's a
+`hot_take` with a stat in it. A heated tone doesn't make an argued post a
+`hot_take`, and a number doesn't make an unargued one `analysis`.
 
+**The other boundaries, so I'm not deciding them on the fly:**
 
+- **`reaction` vs `hot_take`: who is the sentence about?** If it's about what
+  just happened to me (what I watched, how it felt), it's `reaction`, even with
+  an insult in it. If it's about how the world is in general, it's `hot_take`.
+  *"That was so boring I fell asleep"* is `reaction`. *"Singapore is a boring
+  track"* is `hot_take`.
+- **`banter` vs everything else: take the joke out.** If a sincere claim is
+  still standing underneath, label the claim. Sarcasm that's really an opinion
+  (*"IT TOOK MAX 10 ATTEMPTS… WASHED MAN"*) is a `hot_take`. It's only `banter`
+  when nothing sincere is left.
+- **Out of scope, not collected:** questions (*"Why didn't Red Bull have this
+  car at the start of season?"*), neutral explanations or news relays with no
+  opinion in them, and replies that can't be understood without the comment
+  above them. They aren't takes, and forcing them into a label would blur all
+  four.
 
 ---
 
