@@ -512,11 +512,14 @@ should.
 
 | # | Criterion | Target | Verdict | How I decided |
 |---|---|---|---|---|
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
+| 1 | Overall accuracy | ≥ 0.60 on every seed | **MISSED** | 0.433 / 0.533 / 0.567. Not one seed reached it. |
+| 2 | Per-label F1 | `hot_take`, `reaction` ≥ 0.55; `analysis`, `banter` ≥ 0.40 | **MISSED** | `analysis` held on all three (0.62–0.83), but `banter` was 0.000 on every seed, `hot_take` missed on 42 and 7, and `reaction` missed on 42. |
+| 3 | Balance | largest ≤ 35%, smallest ≥ 20% | **MET** | Counted from `labels.csv`: 29.5% / 21.0%. It's a property of the dataset, so it's the same on every seed. |
+| 4 | Staff agreement | ≥ 21/30 and ≤ 3 `analysis`↔`hot_take` misses | **MISSED** | 8/30 (27%) from `agreement.py`, with 4 `analysis`↔`hot_take` misses. Both halves failed. |
+| 5 | Confidence gap | most-sure third beats least-sure third by ≥ 0.20 | **MISSED** | 0.60 and 0.40 on seeds 42 and 7, but 0.00 on seed 2024. It has to hold on all three. |
+
+None of my criteria turned out to be *broken*: every one gave me a number I
+could call. So I haven't revised any; the four misses stay misses.
 
 **Diagnoses**
 
@@ -529,6 +532,76 @@ should.
      have that can tell a LABELLING problem from a MODEL problem, and this
      section is graded on whether you used it that way. -->
 
+**1. Accuracy (MISSED): mainly a model that never finished learning, plus
+a labelling problem on `reaction`.**
+
+- *Under-training.* Validation loss only fell from 1.32 to 1.25 over three
+  epochs. Random guessing across four labels is about 1.39. With 139 training
+  posts and batch size 16, three epochs is just 27 weight updates. The model
+  stopped while it was still close to guessing.
+- *How I know it's not just a hard task:* the zero-shot baseline, which never
+  saw a single example, got 4 of 7 `banter` posts right from the definition
+  alone. The signal is in the text; my model just never picked it up.
+- *Part of it is my labels.* Half of the trained model's non-`banter` errors on
+  seed 42 sit on `hot_take` ↔ `reaction` (5 of 10: 3 one way, 2 the other). My
+  agreement report shows that's exactly the boundary I apply loosely: 13 of my
+  22 staff misses were me over-using `reaction`, and 5 went the other way. My
+  cold 20 last unit showed the same drift. When the person writing the labels
+  can't hold a boundary steady, the model can't learn it either.
+- *And the measure itself is shaky.* 30 test posts means one post is 3.3
+  points, and accuracy moved 0.133 across seeds. Even a better model would be
+  hard to call against a 0.60 line.
+
+**2. Per-label F1 (MISSED): `banter` is an under-training problem;
+`hot_take` is a labelling problem.**
+
+- *`banter` scored 0.000 on every seed because the model never predicted it
+  once.* The `banter` column of the confusion matrix is empty on all three
+  seeds, and 12 of the 21 test jokes went to `reaction`. That's a class the
+  model never learned, not one it learned badly. The zero-shot baseline
+  scoring 0.444 on the same posts says the label is learnable. My jokes are
+  short and written mid-race, like my reactions, so a barely-trained model
+  falls back on surface features and they look the same.
+- *Some of it is labelling too.* 3 of my 9 cold-20 disagreements were
+  `banter` ↔ `reaction`/`hot_take` swaps. The staff set can't test this,
+  because it has no `banter` label, so this is the one place my evidence is
+  thinner.
+- *`hot_take` (missed on 2 seeds) is the boundary I can't hold myself.* It's
+  the label most often confused with `reaction`, and the agreement report
+  puts my own `hot_take`/`reaction` judgement at the centre of my misses.
+  That points at labelling, not the model.
+- *It isn't "too few examples".* `analysis` is my smallest label (42 posts, 6
+  in test) and it was my best on every seed (0.62–0.83). So the count isn't
+  what's sinking `hot_take` (56 posts). One caveat against myself: `analysis`
+  posts are also much longer (median 347 characters), so some of its success
+  may be the model learning "long post" rather than "argued from a fact".
+
+**4. Staff agreement (MISSED): a consistency problem in how I apply the
+`reaction` rule.**
+
+- 19 of 22 disagreements are pile (a): the staff rule covered the post and I
+  applied it loosely. They aren't all one direction (13 into `reaction`, 5
+  out of it), so I wasn't following a different rule of my own. I was going
+  by tone instead of asking "is this about the writer or about the world?"
+- The `analysis` half (4 misses, 2 of them flagged as hard by staff) is
+  partly a real difference rather than sloppiness. My own taxonomy demands
+  that "the conclusion is no bigger than what the fact can show", which is
+  stricter than staff Rule 1. sp_005 and sp_010 are the pile (b) cases.
+- I set 70% because staff said the 70s are normal. 27% is far enough below
+  that I'm not going to blame the posts: it's how carefully I applied a
+  written rule.
+
+**5. Confidence gap (MISSED on one seed): the model was never confident about
+anything.**
+
+- Average confidence in its top choice was 0.30–0.34 on every seed, against
+  0.25 for a uniform guess. On seed 2024 it was 0.301 when right and 0.300
+  when wrong. Sorting posts into confidence thirds was sorting by differences
+  in the third decimal place, so whether the "most-sure" third beat the
+  "least-sure" third came down to the luck of the split: 0.60 on seed 42,
+  0.00 on seed 2024.
+- That's the same under-training as criterion 1. Confidence can't mean
+  anything until the model has moved away from guessing.
 
 
 ---
