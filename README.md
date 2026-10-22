@@ -949,13 +949,49 @@ about.**
 
 <!-- For each criterion still missed: what you'd do, and why you stopped. -->
 
+Three criteria are still missed after the fix: 1, 2 and 4.
 
+**2. Per-label F1, because of `banter`.** This is the one I'd go after next,
+and the epochs result tells me how: not more training, but cleaner `banter`
+labels. I'd re-read all 43 `banter` posts with my own "take the joke out" rule
+applied strictly. Any where a sincere claim survives (sarcastic takes like
+*"I wonder if Ferrari would have ended up a lap behind if it hadn't been for
+the first safety car?"*) move to `hot_take`.
+Then I'd collect more pure jokes from live race threads until `banter` was
+back at 40+. I'd expect `hot_take` (0.500 on seed 42) to firm up at the same
+time, since that's where the moved jokes would go. *Why I stopped:* the brief
+asks for one fix, and I spent it on epochs. Relabelling also changes the data
+and so the test split, which would have made this unit's before/after
+comparison meaningless.
 
+**1. Overall accuracy.** Two things, in order. First, more epochs again:
+validation loss was still falling at epoch 10, so 90 updates probably isn't
+the ceiling. Second, more data: with 30 test posts one post is 3.3 points and
+my seeds still spread by 0.100, so a 0.60 line is hard to call either way. I'd
+want roughly 400 posts (60 test) before trusting any single accuracy number.
+*Why I stopped:* same one-fix rule. And I don't think accuracy can get far
+past 0.60 while my `reaction` boundary is as loose as the agreement report
+shows. Fixing the labels comes before fixing the model.
+
+**4. Staff agreement (8/30).** What I'd do is change how I label, not the
+labels on this set: before every `reaction`/`hot_take` call, ask Rule 2's
+question explicitly ("is this about the writer, or about the world?") instead
+of going by tone, and re-check my own 59 `reaction` rows the same way. *Why I
+stopped:* I can't honestly re-measure this. I've now seen the staff answers
+and their reasons, so re-labelling the 30 posts would test my memory, not my
+judgement. The fair version would be a fresh set of posts I haven't seen.
 **The gap between what I meant my labels to capture and what the model
 learned:**
 <!-- Two sentences. Your confusion matrix is the evidence. -->
 
-
+I meant `banter` to capture "the joke is the whole point", but the model
+predicted it once in 180 test predictions across both runs and instead sorts
+jokes by their surface: short, in-the-moment ones go to `reaction` and
+sweeping, confident ones to `hot_take` (10 and 9 of 21 after the fix). It
+learned what my labels look like rather than what they mean: `analysis`, the
+long, number-heavy label, is its best on every seed, while every big error
+sits on the pairs I separate by intent instead of form (`reaction` vs
+`hot_take`, and `banter` vs both).
 
 <!-- ═════════════════════════════════════════════════════════════════════
 
