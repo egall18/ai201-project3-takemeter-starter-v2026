@@ -374,19 +374,66 @@ the file.
 
 | Measure | Baseline | Trained | Difference |
 |---|---|---|---|
-| Overall accuracy |  |  |  |
-| Macro F1 |  |  |  |
-| F1 — `label_one` |  |  |  |
-| F1 — `label_two` |  |  |  |
+| Overall accuracy | 0.267 | 0.433 | +0.167 |
+| Macro F1 | 0.198 | 0.373 | +0.174 |
+| F1 — `analysis` | 0.348 | 0.615 | +0.268 |
+| F1 — `banter` | 0.444 | 0.000 | -0.444 |
+| F1 — `hot_take` | 0.000 | 0.353 | +0.353 |
+| F1 — `reaction` | 0.000 | 0.522 | +0.522 |
+
+Both columns are the same 30 held-out posts from `test_split.csv`. The
+baseline is `facebook/bart-large-mnli` zero-shot, given my definitions from
+`label_definitions.txt`; the trained column is seed 42 from last unit. I also
+ran the baseline once with bare label names and no definitions (not
+committed): **0.367 accuracy, 0.235 macro F1**, which beats the run with my
+definitions.
 
 **What I predicted before I looked:**
 <!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
      prediction made afterwards isn't one. -->
 
+Written before running the baseline for this write-up. To be upfront about
+what I already knew: I'd seen my trained model's seed-42 accuracy (0.433) at
+the end of last unit, and I'd also seen an earlier trial run of this same
+baseline, which scored 0.267.
+
+My prediction is that the baseline lands **about the same as my trained
+model, within roughly 0.10 of 0.433**. My trained model barely moved off
+random guessing (27 weight updates in total), so a large general model reading
+my four definitions shouldn't need to do much to match it.
+
 **What the gap actually means:**
 <!-- If the baseline matched your trained model, your fine-tuning added
      nothing — and that is a real finding, not a failure. Say it plainly. -->
 
+My prediction was wrong: the trained model beat the baseline by 0.167,
+outside the "within 0.10" I called. The baseline came out exactly where the
+earlier trial run had it, so I should have trusted that run over my
+reasoning about how under-trained my model was.
+
+The gap is smaller than it looks, though. On 30 posts, +0.167 is 5 posts.
+And against the bare-names baseline (0.367) the gap shrinks to 0.067, which
+is 2 posts. So fine-tuning added something, but not a lot. The one-seed
+trained number can't yet be told apart from a general model given nothing but
+four label names.
+
+The per-label rows matter more than the headline:
+
+- **The baseline never predicted `reaction` and almost never predicted
+  `hot_take`.** With my definitions it called 17 of 30 posts `analysis`. My
+  `analysis` definition is the only one that literally says "about the
+  sport", which every post on r/formula1 is, so the zero-shot model reads it
+  as a match for nearly anything. That's a wording problem in my definition
+  that I'd never have spotted by reading it myself. It also explains why my
+  definitions did *worse* than bare names (0.267 vs 0.367).
+- **`banter` is the one label where the baseline beat my model**: 0.444
+  against 0.000. My trained model didn't get a single joke right on seed 42,
+  while a general model reading "the joke is the whole point" got 4 of 7.
+  So `banter` is learnable from the text; my model just didn't learn it in 27
+  updates.
+- **`reaction` and `hot_take` are where training actually paid off** (+0.52
+  and +0.35). Those are the labels that depend on r/formula1 tone, which a
+  general model reading definitions can't pick up but a few examples can.
 
 
 ---

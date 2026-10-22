@@ -1,0 +1,190 @@
+{
+  "model": "facebook/bart-large-mnli",
+  "n": 30,
+  "seed": 42,
+  "held_out": true,
+  "used_definitions": true,
+  "scores": {
+    "n": 30,
+    "accuracy": 0.26666666666666666,
+    "f1_macro": 0.19806763285024154,
+    "per_label": {
+      "analysis": {
+        "precision": 0.23529411764705882,
+        "recall": 0.6666666666666666,
+        "f1": 0.3478260869565218,
+        "support": 6
+      },
+      "banter": {
+        "precision": 0.36363636363636365,
+        "recall": 0.5714285714285714,
+        "f1": 0.4444444444444444,
+        "support": 7
+      },
+      "hot_take": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 8
+      },
+      "reaction": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 9
+      }
+    }
+  },
+  "predictions": [
+    {
+      "text": "Fully expecting us to convert this 2 & 6 into a 3 & 7.",
+      "gold": "banter",
+      "predicted": "banter"
+    },
+    {
+      "text": "Absolutely unenjoyable to watch. The track with the most nonsensical set of corners I've ever seen.",
+      "gold": "reaction",
+      "predicted": "banter"
+    },
+    {
+      "text": "CONGRATULATIONS TO ELFYN EVANS ON WINNING THE WORLD RALLY CHAMPIONSHIP!\nIT WAS A BOLD STRATEGY, BUT WAITING UNTIL THE BEST DRIVERS HAD RETIRED FROM THE SPORT AND THEN COUNTING ON THE FASTEST DRIVERS MAKING A MESS OF IT AT THE LAST POSSIBLE SECOND PROVED TO BE THE RIGHT CALL. WHAT WAS IT THAT COLIN MCRAE SAID? \"IF IN DOUBT, WAIT IT OUT\"?",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Someone said \u201cnow Leclerc needs to do his thing and Oscar has a podium\u201d.  Real quiet from them it seems now",
+      "gold": "banter",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Sainz has outqualified Albon 13-4 at this point and is on average 3 tenths faster than him in quali, but sure, you don\u2019t see much pace difference between them. And I\u2019m sure Sainz bringing results to Williams that they hadn\u2019t seen in a decade like multiple podiums means nothing to them either. It\u2019s amusing how you dismiss anything that gives Sainz the edge over Albon due to your fixation with accountability.",
+      "gold": "analysis",
+      "predicted": "banter"
+    },
+    {
+      "text": "Merc Deputy TP looks more casual and unc than Toto Wolff",
+      "gold": "banter",
+      "predicted": "banter"
+    },
+    {
+      "text": "George has to be broken mentally after this",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "JUST REMOVE THE INTERS/WET TYRES ALREADY IF YOU ARE GONNA STOP THE RACES EVERYTIME IT RAINS.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Lando pulling a gap, even if it's only a tenth, on both Mercedes and Oscar who are all within a tiny spread is really impressive.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "It would not be a huge thing to fix Madring.\nCouple changes to a few of the corners will make a difference.\nWe just gotta actually get them to do it.",
+      "gold": "hot_take",
+      "predicted": "banter"
+    },
+    {
+      "text": "You just knew they were going to crash. What the fuck was Lando thinking. It\u2019s a sprint race with virtually nothing to gain",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Hamilton just did 44 laps on softs in Singapore, and he could have gone at least 5 more before they became dangerous to drive on. Needless to say, that was the C5 compound, softest of the softs. In 2013 even hards were lasting less than 20 laps.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Amazing from Kimi. Feel bad for George, if he was fighting anyone else apart from his team mate I bet he\u2019d have pitted under the vsc as well",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "What a shitty performance by the upgraded car. Let's hope the race pace is better and that our drivers can climb back to the top.",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "I am way too excited knowing full well the ferrari boys going to end up p5/p6 by the end of the race with all the merc power cars blasting past them. I really hope I am wrong.",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "IDEA FOR FOM TO GET DOUBLE THE CELEBRATIONS:\n1. CANCEL QATAR & ABU DHABI THIS WEEK (DON'T ANNOUNCE IMOLA)\n2. KIMI BECOMES CHAMPION MID-WEEK\n3. AT US GP WEEKEND CELEBRATE\n4. BEFORE MEXICO ANNOUNCE IMOLA\n5. KIMI NO LONGER CHAMPION (PROBABLY)\n6. WAIT FOR KIMI TO WIN AGAIN",
+      "gold": "banter",
+      "predicted": "banter"
+    },
+    {
+      "text": "Maybe the start will be ok with Hamilton passing Verstappen because Red Bulls starts are still awful. Other than that nothing will happen. A crash will lead to a red flag most likely, so that isn't going to shake anything up either.\nIt'll just be tyre conservation all throughout because track position is king.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Kimi is lucky. However, he needs to dominate in these wet conditions if he wants to be up there with Lewis and Max",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "bono would have definitely told him to box. the whole reason why lewis wanted to stay out was because santi doesn't answer his question of how the soft tire was at the end of stint for the leading cars. I mean go back to russia 21 he wanted to stay out and bono shut him down and said no box now! Ik its different situations but bono and lewis were comfortable communicating with each other. like idk if ferrari are scared of lewis and omg what is asking us is he mad at us?  maybe lewis is putting too much pressure on his race team. look at how gp communicates with max",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Mother nature hits us with the ultimate case of blue balls.",
+      "gold": "banter",
+      "predicted": "banter"
+    },
+    {
+      "text": "Another thing about this track that sucks - just like Mexico T1 drivers are basically punished for keeping it on the road. Looking at the replay of Oscars incident, he loses three positions because he actually\u00a0\nmakes the corner\n. Would have been better off just bailing and cutting the corner like Max and Kimi",
+      "gold": "analysis",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "As much as I like classic tracks sometimes they just don't provide good racing with F1. Even with these cars you need the car ahead to be quite slower to even have a chance.",
+      "gold": "hot_take",
+      "predicted": "banter"
+    },
+    {
+      "text": "PEOPLE ARE STILL RACING THEM SHOW THEM ON SCREEN YOU IDIOTS",
+      "gold": "reaction",
+      "predicted": "banter"
+    },
+    {
+      "text": "The battle for P3 could end up being pretty interesting.\nHamilton leads Leclerc by 23 points and Norris and Verstappen are just 3 points behind Norris. Verstappen is on great form at the moment, and would have to outscore Hamilton by just 4 points per weekend to jump him in the standings.\nIt's not impossible that the fight for P2 gets interesting as well, since Russell is just 22 points clear of Hamilton. Given Russell's season, I wouldn't be surprised with another retirement from a podium position.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "The Astons are going as fast as they can",
+      "gold": "banter",
+      "predicted": "analysis"
+    },
+    {
+      "text": "GP: \"Nicely done Max!\"\nMax: \"diujhdhiujdhuifjg\"",
+      "gold": "banter",
+      "predicted": "analysis"
+    },
+    {
+      "text": "FUCK THE RACE DIRECTORS FOR DELAYING THE RACE AND NOT USING WET TIRES. FUCK THE CARS FOR THE SHITTY SOFTWARE THAT CAUSES THEM TO STOP PINNACLE OF MOTORSPORTS MY ASS",
+      "gold": "reaction",
+      "predicted": "banter"
+    },
+    {
+      "text": "I've given up watching and caring about this circuit",
+      "gold": "reaction",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "The fact that Yuki can have no experience with these cars and immediately be on the pace and Liam can jump into a car he's never driven and be a tenth off Max just shows how they've completely killed driver skill making the difference in these regulations and it's now 99% car instead of 80-90% car like before. I know I'm beating a dead horse but it's really a joke never in a million years would this have happened last year or in 2021 with those cars.",
+      "gold": "hot_take",
+      "predicted": "banter"
+    },
+    {
+      "text": "The team absolutely care if they're 4th/5th vs 8th/DNF.\nPutting a guaranteed team 4th/5th at risk when you have little chance of gaining anything other than a single point when youre at best fighting for 5th in the drivers championship isn't really a championship driving mentality, it's just shortsighted.\nEspecially now considering Red Bull could feasibly take 3rd in the constructors from McLaren (they're only 7 pts behind), this move was not smart and could come back to bite the team",
+      "gold": "analysis",
+      "predicted": "analysis"
+    }
+  ]
+}
