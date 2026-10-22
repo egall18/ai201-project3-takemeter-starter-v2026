@@ -443,29 +443,63 @@ The per-label rows matter more than the headline:
 <!-- Five criteria across three seeds. The notebook's section 6 prints the
      spread table; the Target and Verdict columns are yours. -->
 
+Trained on `cpu`, torch 2.2.2, default settings (3 epochs, lr 2e-5, batch
+16). Seed 42 reproduced last unit's run exactly (0.433).
+
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | ≥ 0.60 on every seed | 0.433 | 0.533 | 0.567 | MISSED |
+| 2. Per-label F1 | `hot_take`, `reaction` ≥ 0.55; `analysis`, `banter` ≥ 0.40 | ana 0.615 · hot 0.353 · rea 0.522 · ban 0.000 | ana 0.667 · hot 0.500 · rea 0.667 · ban 0.000 | ana 0.833 · hot 0.556 · rea 0.609 · ban 0.000 | MISSED |
+| 3. Balance | largest ≤ 35%, smallest ≥ 20% | 29.5% / 21.0% | 29.5% / 21.0% | 29.5% / 21.0% | MET |
+| 4. Staff agreement | ≥ 21/30, ≤ 3 `analysis`↔`hot_take` misses | — | — | — | pending (Milestone 3) |
+| 5. Confidence gap | most-sure third − least-sure third ≥ 0.20 | 0.70 − 0.10 = 0.60 | 0.70 − 0.30 = 0.40 | 0.60 − 0.60 = 0.00 | MISSED |
+
+The notebook's spread table:
+
+| Measure | Seed 42 | Seed 7 | Seed 2024 | Spread |
+|---|---|---|---|---|
+| Overall accuracy | 0.433 | 0.533 | 0.567 | 0.133 |
+| Macro F1 | 0.373 | 0.458 | 0.499 | 0.127 |
+| F1 — `analysis` | 0.615 | 0.667 | 0.833 | 0.218 |
+| F1 — `hot_take` | 0.353 | 0.500 | 0.556 | 0.203 |
+| F1 — `reaction` | 0.522 | 0.667 | 0.609 | 0.145 |
+| F1 — `banter` | 0.000 | 0.000 | 0.000 | 0.000 |
+
+Accuracy moved 0.133 across seeds, more than 10 points, so a single seed
+can't tell me much on 30 test posts.
 
 ### Confusion matrix
 
 <!-- ⚠️ TYPED AS A MARKDOWN TABLE. The notebook prints one ready to paste.
      An image of a matrix earns nothing. -->
 
-| true \ predicted |  |  |  |
-|---|---|---|---|
-| **** |  |  |  |
-| **** |  |  |  |
-| **** |  |  |  |
+Seed 42:
+
+| true \ predicted | analysis | hot_take | reaction | banter |
+|---|---|---|---|---|
+| **analysis** | 4 | 2 | 0 | 0 |
+| **hot_take** | 2 | 3 | 3 | 0 |
+| **reaction** | 1 | 2 | 6 | 0 |
+| **banter** | 0 | 2 | 5 | 0 |
 
 **My biggest off-diagonal number, and what it means:**
 <!-- Not "the model made mistakes" — WHICH boundary it didn't learn, and which
      direction. "7 real analysis posts were called hot_take and only 3 went the
      other way" is a direction, not just an error rate. -->
+
+**5 real `banter` posts were called `reaction`, and 0 went the other way.**
+The model didn't learn the `banter`/`reaction` boundary at all. More than
+that, the `banter` column is empty on all three seeds: across 21 test-set
+jokes, it never once predicted `banter`. It sends jokes to `reaction` (12 of
+21 across seeds), `hot_take` (7) or `analysis` (2). The direction makes sense
+for my data: most of my jokes are short, in-the-moment and written during a
+race, exactly like my reactions, so on surface features a joke looks like a
+reaction.
+
+The other pairs look the way I hoped. `analysis` is the most stable label
+(F1 0.62–0.83), and almost nothing gets confused with it except a couple of
+`hot_take`s each way, which is my hardest boundary doing roughly what it
+should.
 
 
 
