@@ -870,24 +870,76 @@ labelling problem, not just a model problem.
 
 ## The Improvement
 
-**What I changed:**
+**What I changed:** One thing: `EPOCHS` from 3 to 10 in section 2 of the
+notebook. That takes training from 27 weight updates to 90. Everything else
+stayed the same: same `labels.csv`, same seeds (42, 7, 2024) and so the same
+splits, same learning rate, batch size and base model. The re-run was saved
+with `RUN_LABEL = "after"` to `results_three_seeds_after.json`, so the
+before numbers are untouched.
 
-**Which diagnosis pointed at it:**
+**Which diagnosis pointed at it:** Under-training, which showed up in three
+of my four misses. Validation loss barely moved off random guessing (1.32 →
+1.25, against about 1.39 for chance). `banter` was never predicted even
+though the zero-shot baseline proved it was learnable. And confidence
+averaged 0.30, barely above the 0.25 of a uniform guess, which is why
+criterion 5 came down to luck. I picked this over relabelling `reaction`
+because it was the one diagnosis I could fix without changing the data,
+which would also have changed the test split and muddied the comparison.
 
 ### Run Log — After
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | ≥ 0.60 on every seed | 0.533 | 0.633 | 0.567 | MISSED |
+| 2. Per-label F1 | `hot_take`, `reaction` ≥ 0.55; `analysis`, `banter` ≥ 0.40 | ana 0.667 · hot 0.500 · rea 0.667 · ban 0.000 | ana 0.714 · hot 0.706 · rea 0.727 · ban 0.000 | ana 0.833 · hot 0.609 · rea 0.588 · ban 0.000 | MISSED |
+| 3. Balance | largest ≤ 35%, smallest ≥ 20% | 29.5% / 21.0% | 29.5% / 21.0% | 29.5% / 21.0% | MET |
+| 4. Staff agreement | ≥ 21/30, ≤ 3 `analysis`↔`hot_take` misses | 8/30 · 4 misses (labels unchanged) | same | same | MISSED |
+| 5. Confidence gap | most-sure third − least-sure third ≥ 0.20 | 0.70 − 0.30 = 0.40 | 0.80 − 0.60 = 0.20 | 0.70 − 0.30 = 0.40 | MET |
+
+The notebook's spread table for the after run:
+
+| Measure | Seed 42 | Seed 7 | Seed 2024 | Spread |
+|---|---|---|---|---|
+| Overall accuracy | 0.533 | 0.633 | 0.567 | 0.100 |
+| Macro F1 | 0.458 | 0.537 | 0.508 | 0.079 |
+| F1 — `analysis` | 0.667 | 0.714 | 0.833 | 0.167 |
+| F1 — `hot_take` | 0.500 | 0.706 | 0.609 | 0.206 |
+| F1 — `reaction` | 0.667 | 0.727 | 0.588 | 0.139 |
+| F1 — `banter` | 0.000 | 0.000 | 0.000 | 0.000 |
 
 **Did it help, and how do I know:**
 
 <!-- If it didn't, say so. Relabelling that didn't help is a genuinely
      interesting result and earns full credit. -->
+
+**Yes, but it fixed the symptom I aimed it at more than the one I cared most
+about.**
+
+- *It fixed under-training.* Validation loss now falls steadily to
+  0.95–1.00 on all three seeds (it never got below 1.25 before), and was
+  still edging down at epoch 10. Confidence means something now: average
+  confidence is 0.50–0.57, and it's higher when the model is right than when
+  it's wrong on every seed. That turned **criterion 5 from MISSED to MET**,
+  the one verdict that changed. Seed 7 lands exactly on the line (8 of 10
+  versus 6 of 10, the "2 more right out of 10" I set), so I'm calling it MET
+  by the criterion's own definition, but only just.
+- *Everything moved up, and it got steadier.* Mean accuracy across seeds rose
+  from 0.511 to 0.578, mean macro F1 from 0.443 to 0.501, and the accuracy
+  spread shrank from 0.133 to 0.100. `reaction` now clears 0.55 on every
+  seed, and `hot_take` went up on every seed (0.35 → 0.50 on seed 42). The
+  same posts and splits were used both times, so this is the change and not
+  a luckier draw.
+- *It did not fix `banter`, and that tells me something.* With 90 updates
+  instead of 27, the model still didn't get a single joke right on any seed.
+  It predicted `banter` exactly once in 90 test predictions, and that one was
+  wrong. The 21 jokes now split between `reaction` (10) and `hot_take` (9),
+  where before most went to `reaction`. If `banter` were only a training-length problem, it should have
+  started to appear. It didn't, so under-training wasn't the whole story for
+  that label. That pushes me towards the other explanation: my `banter`
+  examples are a mix of sarcastic takes and in-the-moment jokes, and on the
+  surface they look like the other two labels.
+- *Criterion 1 is still missed.* Seed 7 reached 0.633, but seeds 42 and 2024
+  didn't, and the target has to hold on all three.
 
 
 
