@@ -451,7 +451,7 @@ Trained on `cpu`, torch 2.2.2, default settings (3 epochs, lr 2e-5, batch
 | 1. Overall accuracy | ≥ 0.60 on every seed | 0.433 | 0.533 | 0.567 | MISSED |
 | 2. Per-label F1 | `hot_take`, `reaction` ≥ 0.55; `analysis`, `banter` ≥ 0.40 | ana 0.615 · hot 0.353 · rea 0.522 · ban 0.000 | ana 0.667 · hot 0.500 · rea 0.667 · ban 0.000 | ana 0.833 · hot 0.556 · rea 0.609 · ban 0.000 | MISSED |
 | 3. Balance | largest ≤ 35%, smallest ≥ 20% | 29.5% / 21.0% | 29.5% / 21.0% | 29.5% / 21.0% | MET |
-| 4. Staff agreement | ≥ 21/30, ≤ 3 `analysis`↔`hot_take` misses | — | — | — | pending (Milestone 3) |
+| 4. Staff agreement | ≥ 21/30, ≤ 3 `analysis`↔`hot_take` misses | 8/30 · 4 misses (labelled once, not per seed) | same | same | MISSED |
 | 5. Confidence gap | most-sure third − least-sure third ≥ 0.20 | 0.70 − 0.10 = 0.60 | 0.70 − 0.30 = 0.40 | 0.60 − 0.60 = 0.00 | MISSED |
 
 The notebook's spread table:
@@ -541,7 +541,7 @@ should.
      data/staff_taxonomy.md, not your own — so every argument below is made
      from those definitions and those decision rules. -->
 
-**Agreement rate:** ___ / 30 = ___%
+**Agreement rate:** 8 / 30 = 27%
 
 <!-- Nobody grades this number. A 60% who argues every disagreement from the
      stated rules beats a 95% who wrote "staff was right" nine times. Several
@@ -563,28 +563,236 @@ should.
      written rule two different ways on 30 posts, that is direct evidence about
      what you did across your own 200. -->
 
-**1.**
-> *The post:*
+**1.** `sp_001`
+> *The post:* Pulled the splits from the last five editions. The winning time has moved by 40 seconds total in ten years, but the 100th-place time is four minutes faster. The depth changed, the front didn't.
 >
-> *Staff said / I said:*
+> *Staff said / I said:* `analysis` / `hot_take`
 >
-> *My call, and why:*
+> *My call, and why:* Staff. Two checkable numbers, and the conclusion ("the depth changed, the front didn't") is exactly what their contrast shows. Rule 1 is satisfied: the fact carries it.
 >
-> *Which pile:*
+> *Which pile:* (a)
 
-**2.**
-> *The post:*
+**2.** `sp_003`
+> *The post:* The club championship scoring changed in 2019 from top-6 to top-10. Since then our B team has finished above the A team twice. That's not depth improving, it's the scoring rewarding turnout.
 >
-> *Staff said / I said:*
+> *Staff said / I said:* `analysis` / `reaction`
 >
-> *My call, and why:*
+> *My call, and why:* Staff. A dated rule change and a counted result, used to reject a rival explanation. Nothing in it is about how the writer feels, so Rule 2 rules out `reaction`.
 >
-> *Which pile:*
+> *Which pile:* (a)
+
+**3.** `sp_004`
+> *The post:* Everyone blames the hill at 18 miles. I split the field into people who ran the first half under 1:45 and over, and the slowdown after 18 was almost identical for both groups. If the hill were the problem the fast starters would fall apart harder.
+>
+> *Staff said / I said:* `analysis` / `reaction`
+>
+> *My call, and why:* Staff. It sets up a test, reports the result and draws the inference. That's the clearest `analysis` in the set, and I have no rule-based case for `reaction`.
+>
+> *Which pile:* (a)
+
+**4.** `sp_005`
+> *The post:* Carbon plates aren't the whole story. My times dropped 2% in the shoes and another 2% the following year in the same pair, when the only thing that changed was going from 35 to 50 miles a week.
+>
+> *Staff said / I said:* `analysis` / `hot_take`
+>
+> *My call, and why:* Staff, under Rule 1 as written: the two comparable numbers are what the claim rests on. I went `hot_take` because it's one runner with a confounded comparison. But Rule 1 only asks whether the fact carries the argument, not whether it's strong enough to, and staff flagged this one as hard.
+>
+> *Which pile:* (b): the rules have no threshold for how much evidence counts
+
+**5.** `sp_006`
+> *The post:* Checked the entry lists. 41% of this year's field have never run the distance before, against 26% five years ago. That's why the finish-line photos look different, not because standards dropped.
+>
+> *Staff said / I said:* `analysis` / `reaction`
+>
+> *My call, and why:* Staff. Two percentages, explicitly used to reject "standards dropped". That's Rule 1 straight.
+>
+> *Which pile:* (a)
+
+**6.** `sp_007`
+> *The post:* Ran the same loop in 4C and in 24C within a fortnight, same effort by heart rate. 90 seconds slower in the heat over six miles. People keep saying heat costs you 'a bit' and it's more than that.
+>
+> *Staff said / I said:* `analysis` / `reaction`
+>
+> *My call, and why:* Staff. It's the writer's own run, which is what pulled me to `reaction`, but Rule 3 says exactly that being personal or recent doesn't outrank a load-bearing fact. The 90 seconds is the argument against "a bit".
+>
+> *Which pile:* (a)
+
+**7.** `sp_008`
+> *The post:* Went back through the club results going back to 2012. Every single year the number of people who enter the spring marathon and don't start it sits between 18 and 23 percent. It's not a bad-luck year, it's the base rate.
+>
+> *Staff said / I said:* `analysis` / `reaction`
+>
+> *My call, and why:* Staff. A range across a named span, used to argue against a one-off explanation.
+>
+> *Which pile:* (a)
+
+**8.** `sp_009`
+> *The post:* The 10K route was remeasured in 2021 and came out 60 metres long. Everyone comparing PBs from before and after that is comparing two different races, which is about 12 seconds at club pace.
+>
+> *Staff said / I said:* `analysis` / `hot_take`
+>
+> *My call, and why:* Staff. Date, measurement and the arithmetic consequence. The confident "everyone… is comparing two different races" tone isn't a reason for `hot_take` when the fact carries it.
+>
+> *Which pile:* (a)
+
+**9.** `sp_010`
+> *The post:* Three of us ran the same session on the same day, different shoes, within 10 seconds of each other over 5 miles. I'm not saying shoes do nothing, but whatever they do was smaller than the noise between three people.
+>
+> *Staff said / I said:* `analysis` / `hot_take`
+>
+> *My call, and why:* Staff, under the rule as written: the observation is checkable and the hedged conclusion rests on it. My `hot_take` was about three people on one day being too small to show anything. That's the same gap as sp_005, and staff flagged it as hard too.
+>
+> *Which pile:* (b): same evidence-threshold gap
+
+**10.** `sp_011`
+> *The post:* Anyone who races more than once a month isn't training, they're just collecting medals.
+>
+> *Staff said / I said:* `hot_take` / `reaction`
+>
+> *My call, and why:* Staff. A claim about a whole group with zero support, and nothing happened to the writer. Rule 2 decides it.
+>
+> *Which pile:* (a)
+
+**11.** `sp_012`
+> *The post:* Heart rate zones are astrology for runners.
+>
+> *Staff said / I said:* `hot_take` / `reaction`
+>
+> *My call, and why:* Staff. Funny, but it's a pure general claim with nothing argued.
+>
+> *Which pile:* (a)
+
+**12.** `sp_013`
+> *The post:* The club needs to stop pretending the Tuesday session is for everyone. It isn't and it never has been.
+>
+> *Staff said / I said:* `hot_take` / `reaction`
+>
+> *My call, and why:* Staff. Strong and general, with no support. The frustrated tone isn't a report of something that just happened.
+>
+> *Which pile:* (a)
+
+**13.** `sp_014`
+> *The post:* Times are down about 3% since the shoe rules changed, so obviously the shoes are the whole story and the sport has a problem.
+>
+> *Staff said / I said:* `hot_take` / `reaction`
+>
+> *My call, and why:* Staff, and it isn't close. It's almost word for word the Rule 1 example of a stat used as decoration ("so obviously" does the work), and it's a claim about the sport, so Rule 2 rules out `reaction` too.
+>
+> *Which pile:* (a)
+
+**14.** `sp_015`
+> *The post:* Marathon training plans are all the same plan with different fonts.
+>
+> *Staff said / I said:* `hot_take` / `reaction`
+>
+> *My call, and why:* Staff. An aphorism about the world with no support.
+>
+> *Which pile:* (a)
+
+**15.** `sp_016`
+> *The post:* If you need a gel before 90 minutes you have a fuelling problem, not an energy problem.
+>
+> *Staff said / I said:* `hot_take` / `reaction`
+>
+> *My call, and why:* Staff. A confident prescription for everyone, with nothing behind it.
+>
+> *Which pile:* (a)
+
+**16.** `sp_019`
+> *The post:* Nobody actually enjoys the long run. They enjoy having done it, which is a completely different thing, and the sport would be more honest if it said so.
+>
+> *Staff said / I said:* `hot_take` / `reaction`
+>
+> *My call, and why:* Staff. It reads reflective, which is why I went `reaction`, but "nobody actually enjoys" is a claim about everyone, not a report of the writer's morning. Rule 2 covers exactly this.
+>
+> *Which pile:* (a)
+
+**17.** `sp_020`
+> *The post:* Every injury thread on this forum is the same injury and the same three replies.
+>
+> *Staff said / I said:* `hot_take` / `reaction`
+>
+> *My call, and why:* Staff. It sounds observational, but no count is given; the writer is asserting a general pattern, not reporting their own experience.
+>
+> *Which pile:* (a)
+
+**18.** `sp_021`
+> *The post:* Four minutes off. FOUR. I've been chasing that time for two years and I'm sat on the kerb outside the finish just grinning at nothing.
+>
+> *Staff said / I said:* `reaction` / `hot_take`
+>
+> *My call, and why:* Staff. The writer's own race, minutes ago, with feeling front and centre. The four minutes is the news, not a claim about anything.
+>
+> *Which pile:* (a)
+
+**19.** `sp_025`
+> *The post:* Blew up at 20 with the pace band still in my hand like it was going to help. Rough one.
+>
+> *Staff said / I said:* `reaction` / `analysis`
+>
+> *My call, and why:* Staff. "At 20" is a mile marker, not a fact that carries an argument; nothing is being argued at all.
+>
+> *Which pile:* (a)
+
+**20.** `sp_027`
+> *The post:* Wind was so bad on the out section I was leaning at about 20 degrees. Coming back felt like cheating.
+>
+> *Staff said / I said:* `reaction` / `hot_take`
+>
+> *My call, and why:* Staff. A report of the run just done; "felt like cheating" is about the writer's experience, not a claim.
+>
+> *Which pile:* (a)
+
+**21.** `sp_028`
+> *The post:* Third DNF this year. I don't really want to talk about it, just wanted to put it somewhere.
+>
+> *Staff said / I said:* `reaction` / `hot_take`
+>
+> *My call, and why:* Staff. "Third this year" is countable, but nothing is argued from it; it's the writer reporting their own state.
+>
+> *Which pile:* (a)
+
+**22.** `sp_029`
+> *The post:* Just realised the shoes I set every PB in this year are the ones I bought by accident in the wrong size.
+>
+> *Staff said / I said:* `reaction` / `hot_take`
+>
+> *My call, and why:* Staff, on the rules as written. My reading was that it's a wry dig at shoe obsession, in a set where three other posts argue about shoes. But Rule 2 asks what the post asserts, and on the surface it only reports the writer's own realisation. The staff rules have no way to handle a claim made by implication or irony. My own taxonomy needed a whole label (`banter`) and a "take the joke out" rule for exactly this.
+>
+> *Which pile:* (b): no rule for implied claims
 
 **What the pattern in my disagreements tells me:**
 
+Pile count: **19 (a), 3 (b), 0 (c).** I didn't win any of these on the
+staff's own rules, and I'd rather say that than dress a loss up as a win. The
+three (b)s are real gaps: Rule 1 has no threshold for how much evidence a
+fact needs (sp_005, sp_010), and Rule 2 can't handle a claim made through
+irony (sp_029).
 
+The (a)s aren't random; they're the `reaction` boundary, in both directions:
 
+- **13 of my 22 misses were me calling something `reaction`** that staff
+  called `hot_take` (8) or `analysis` (5). Heated, reflective or first-person
+  posts went to `reaction` even when they were claims about the world
+  (sp_012, sp_014, sp_019) or arguments from the writer's own data (sp_007).
+- **5 went the other way**: posts that really were the writer reporting what
+  just happened to them (sp_021, sp_027, sp_028) got called `hot_take` or
+  `analysis`.
+
+Errors in both directions mean I wasn't consistently applying some different
+rule of my own. I was applying Rule 2 ("about the writer or about the
+world?") loosely and going by feel. And it isn't new: my cold 20 last unit
+disagreed with the pre-labels the same way, with 4 of 9 misses being me
+calling something `reaction`.
+
+What this means for my own 200: two separate checks now say that **my
+personal reading of `reaction` is the least reliable thing in my labelling**.
+In my dataset that mostly affects the 20 cold rows, since the other 180 were
+pre-labelled by applying the written rules. But that's a mix of two readings
+of the same boundary, and the model's mistakes sit right on it: `banter` →
+`reaction` (12 of 21 across seeds) and `hot_take` ↔ `reaction`. I'll use that
+as evidence in the diagnoses that at least part of the confusion is a
+labelling problem, not just a model problem.
 ---
 
 ## The Improvement
